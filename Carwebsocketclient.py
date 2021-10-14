@@ -9,6 +9,7 @@ import socket, time, json
 from tkinter import ttk  # 导入ttk模块，因为下拉菜单控件在ttk中
 import websocket
 
+# 这个是客户端程序
 AvailableKeys = ["w", "s", "a", "d", "up", "down", "left", "right", "q", "escape"]
 msg = """
 Move:                   Rotating:
@@ -378,7 +379,6 @@ class MainWindow(tk.Frame):
             self.stop()
         finally:
             print("stop control")
-
 
     def on_press(self, ke):
         if not self.controlling:

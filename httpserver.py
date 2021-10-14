@@ -17,7 +17,7 @@ import urllib.parse
 import urllib.request
 from io import BytesIO
 from socketserver import ThreadingMixIn
-
+#这个是网页后端
 Work_Path = os.path.split(sys.argv[0])[0]
 print(Work_Path, os.path.split(sys.argv[0])[0])
 
@@ -38,8 +38,9 @@ def get_ips():
         ip_list = [ad[4][0] for ad in addrs if len(ad[4]) == 2]
     return ip_list
 
-
-print(get_ips(), "端口:10590")
+ips=get_ips()
+ips.append("127.0.0.1")
+print(ips, "端口:10590\n网页端访问链接:\n{}".format( "\n".join(["http://"+i+":10590" for i in ips])))
 
 
 def matchip(host: str):

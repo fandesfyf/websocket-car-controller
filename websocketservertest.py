@@ -10,16 +10,18 @@ import json
 import os
 import sys
 import time
-
 import websockets
 import threading
 from httpserver import httpserver as Httpserver
 
+
+# 这个是用于测试的服务端程序,没有接入ros,用于测试连接
 class CarWebSocketserver():
     def __init__(self, host="", port=8787):
         super(CarWebSocketserver, self).__init__()
         self.host, self.port = host, port
-        self.websockets_server = websockets.serve(self.requestcallback, self.host, self.port,ping_timeout=1,timeout=1,ping_interval=1)
+        self.websockets_server = websockets.serve(self.requestcallback, self.host, self.port, ping_timeout=1, timeout=1,
+                                                  ping_interval=1)
 
     async def requestcallback(self, websocket, path):
         print("request path:", path)
@@ -45,9 +47,10 @@ class CarWebSocketserver():
     #     self.websockets_server.
 
     # 接收客户端消息并处理，这里只是简单把客户端发来的返回回去
-    async def speedcontrol(self, websocket:websockets.server.WebSocketServerProtocol):#websockets.server.WebSocketServerProtocol
+    async def speedcontrol(self,
+                           websocket: websockets.server.WebSocketServerProtocol):  # websockets.server.WebSocketServerProtocol
         while True:
-            recv_text =await websocket.recv()
+            recv_text = await websocket.recv()
             print("rec:", recv_text)
 
     async def heartbeat(self, websocket):
@@ -111,8 +114,8 @@ class Logger(threading.Thread):
     def flush(self):
         pass
 
-def main():
 
+def main():
     wsserver = CarWebSocketserver()
     wsserver.run()
     print("websocket server started!")
@@ -121,7 +124,8 @@ def main():
     print("http server started!")
     print("ready")
     asyncio.get_event_loop().run_forever()
-if __name__ == '__main__':
-    sys.stdout=Logger(os.path.join(os.path.expanduser("~"),"test.log"))
-    main()
 
+
+if __name__ == '__main__':
+    sys.stdout = Logger(os.path.join(os.path.expanduser("~"), "test.log"))
+    main()
