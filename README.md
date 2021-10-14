@@ -44,8 +44,8 @@
 ├─img//图片文件夹
 ```
 ## 界面演示
-[image](https://github.com/fandesfyf/websocket-car-controller/blob/main/demo/1.jpg)
-[image](https://github.com/fandesfyf/websocket-car-controller/blob/main/demo/2.jpg)
+![image](https://github.com/fandesfyf/websocket-car-controller/blob/main/demo/1.jpg)
+![image](https://github.com/fandesfyf/websocket-car-controller/blob/main/demo/2.jpg)
 
 ## 使用方法
 网页端控制：
