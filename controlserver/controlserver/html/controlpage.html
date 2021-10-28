@@ -293,8 +293,9 @@
 
 
         }
-        #modeswitch{
-            z-index: 10; ;
+
+        #modeswitch {
+            z-index: 10;;
             background-image: url("img/switch1.png");
             position: relative;
             background-repeat: no-repeat;
@@ -345,8 +346,9 @@
 <button id="menubtn" onclick="menuclick()"></button>
 <div id="connectbox">
     <div id="statelight"><p id="statetext">连接中...</p></div>
-    <button id="disconnect" class="btn" style="background-color: darkred" onclick="controller.disconnect()">断开</button><br>
-    <button id="modeswitch"  onclick="changemode()">按键模式</button>
+    <button id="disconnect" class="btn" style="background-color: darkred" onclick="controller.disconnect()">断开</button>
+    <br>
+    <button id="modeswitch" onclick="changemode()">按键模式</button>
 </div>
 <form id="detal"><p id="valueV">V:--</p>
     <p id="valueT">Θ:--</p>
@@ -367,36 +369,37 @@
 </div>
 <script>
     var touchmode = false;
-function changemode(){
+
+    function changemode() {
         touchmode = !touchmode;
-        if (touchmode){
-            document.getElementById("btnW").style.display='none'
-            document.getElementById("btnS").style.display='none'
-            document.getElementById("btnA").style.display='none'
-            document.getElementById("btnD").style.display='none'
-            document.getElementById("modeswitch").style="background-image: url(\"img/switch2.png\");"
-            document.getElementById("modeswitch").innerText="摇杆模式"
+        if (touchmode) {
+            document.getElementById("btnW").style.display = 'none'
+            document.getElementById("btnS").style.display = 'none'
+            document.getElementById("btnA").style.display = 'none'
+            document.getElementById("btnD").style.display = 'none'
+            document.getElementById("modeswitch").style = "background-image: url(\"img/switch2.png\");"
+            document.getElementById("modeswitch").innerText = "摇杆模式"
+        } else {
+            document.getElementById("btnW").style.display = 'block'
+            document.getElementById("btnS").style.display = 'block'
+            document.getElementById("btnA").style.display = 'block'
+            document.getElementById("btnD").style.display = 'block'
+            document.getElementById("modeswitch").style = "background-image: url(\"img/switch1.png\");"
+            document.getElementById("modeswitch").innerText = "按键模式"
         }
-        else {
-            document.getElementById("btnW").style.display='block'
-            document.getElementById("btnS").style.display='block'
-            document.getElementById("btnA").style.display='block'
-            document.getElementById("btnD").style.display='block'
-            document.getElementById("modeswitch").style="background-image: url(\"img/switch1.png\");"
-            document.getElementById("modeswitch").innerText="按键模式"
-        }
-}
+    }
+
     function touchstart(btn) {
         document.getElementById("test").innerText = btn;
-        console.log('btn'+btn, 'touchstart')
-        document.getElementById('btn'+btn).style = "color:white; border-radius: 1em;";
+        console.log('btn' + btn, 'touchstart')
+        document.getElementById('btn' + btn).style = "color:white; border-radius: 1em;";
         controlclickdown(btn)
     }
 
     function touchend(btn) {
         document.getElementById("test").innerText = btn;
-        console.log('btn'+btn, 'touchend')
-        document.getElementById('btn'+btn).style = "color:black; border-radius: 0.8em;";
+        console.log('btn' + btn, 'touchend')
+        document.getElementById('btn' + btn).style = "color:black; border-radius: 0.8em;";
         controlclickup(btn)
     }
 
@@ -416,7 +419,8 @@ function changemode(){
     }
 </script>
 <script type="text/javascript">
-    var onshowmenu = true
+    var onshowmenu = false
+    settingbox.style.display = "none"
 
     function browserRedirect() {
         settingbox = document.getElementById("settingsbox");
@@ -424,10 +428,9 @@ function changemode(){
         if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
             //跳转移动端页面
             console.log("移动端")
-            settingbox.style.display = "none"
-            onshowmenu = false
         } else {
             //跳转pc端页面
+
             console.log("pc端")
         }
     }
@@ -647,7 +650,7 @@ function changemode(){
                 document.getElementById("disconnect").style = "height:50px;"
             } else {
                 document.getElementById("disconnect").onclick = window.location.reload()
-                connected=true
+                connected = true
             }
 
         }
@@ -761,7 +764,7 @@ function changemode(){
     var cx, cy;
     var R = 150;
     cx = bg.style.left = joystick.style.left = document.body.clientWidth / 2;
-    cy = bg.style.top = joystick.style.top = document.body.clientHeight /2;
+    cy = bg.style.top = joystick.style.top = document.body.clientHeight / 2;
     bg.style.display = "block";
     joystick.style.display = "block";
 

@@ -5,6 +5,7 @@
 # @FileName: Carwebsocketserver.py
 # @Software: PyCharm
 import os, sys, time
+
 print(os.getcwd())
 # os.mkdir("/home/zhihui/AutoRS_v2/"+str(time.time()))
 import asyncio
@@ -31,6 +32,8 @@ from geometry_msgs.msg import TwistStamped
 Work_Path = os.path.split(sys.argv[0])[0]
 print(Work_Path, os.path.split(sys.argv[0])[0])
 
+
+# 这个是接入ros系统的服务端程序
 def get_ips():
     ip_list = []
     if sys.platform == "linux":
@@ -49,8 +52,9 @@ def get_ips():
     return ip_list
 
 
-print(get_ips(),"端口:10590")
-
+ips=get_ips()
+ips.append("127.0.0.1")
+print(ips, "port:10590\nWeb Access Link :\n{}".format( "\n".join(["http://"+i+":10590" for i in ips])))
 
 def matchip(host: str):
     requestsip = host.split(":")[0]
@@ -197,7 +201,6 @@ class ThreadingServer(ThreadingMixIn, http.server.HTTPServer):
     pass
 
 
-
 class CarWebSocketserver():
     def __init__(self, host="", port=8787):
         super(CarWebSocketserver, self).__init__()
@@ -223,7 +226,7 @@ class CarWebSocketserver():
     async def requestcallback(self, websocket, path):  # websockets.legacy.server.WebSocketServerProtocol
         print("request path:", path, websocket.remote_address)
         if path == "/control":
-            print("控制速度")
+            print("control speed")
             try:
                 task = asyncio.get_event_loop().create_task(self.speedcontrol(websocket))
                 task2 = asyncio.get_event_loop().create_task(self.heartbeat(websocket))
@@ -234,7 +237,7 @@ class CarWebSocketserver():
                 return
 
         else:
-            print("未知请求")
+            print("unknown request")
             await websocket.send("unknown request")
         print("end")
 
@@ -266,7 +269,7 @@ class CarWebSocketserver():
 
 
 class Logger(threading.Thread):
-    def __init__(self, log_path="jamtools.log"):
+    def __init__(self, log_path="controller.log"):
         super(Logger, self).__init__()
         # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
         self.terminal = sys.stdout
@@ -278,16 +281,15 @@ class Logger(threading.Thread):
     def run(self) -> None:
         if os.path.exists(self.log_path):
             ls = os.path.getsize(self.log_path)
-            print("日志文件大小为:", ls, " 保存于:", self.log_path)
+            print("log size:", ls, " save in:", self.log_path)
             if ls > 2485760:
-                print("日志文件过大")
                 with open(self.log_path, "r+", encoding="utf-8")as f:
                     f.seek(ls - 1885760)
-                    log = "已截断日志" + time.strftime("%Y-%m-%d %H:%M:%S:\n", time.localtime(time.time())) + f.read()
+                    log = "cut the log" + time.strftime("%Y-%m-%d %H:%M:%S:\n", time.localtime(time.time())) + f.read()
                     f.seek(0)
                     f.truncate()
                     f.write(log)
-                print("新日志大小", os.path.getsize(self.log_path))
+                print("new log size:", os.path.getsize(self.log_path))
         self.log = open(self.log_path, "a", encoding='utf8')
         self.log.write("\n\nOPEN@" + time.strftime("%Y-%m-%d %H:%M:%S:\n", time.localtime(time.time())))
         try:
