@@ -8,7 +8,7 @@
 │  Carwebsocketclient.py//客户端程序的源码
 │  Carwebsocketserver.py//服务端源码,使用ros,用于实际有ros环境的地方部署调用httpserver.py作为web服务端
 │  favicon.ico
-│  httpserver.py//web服务
+│  httpserver.py//单独的web服务端,最新版的源码web服务端已经整合到Carwebsocketserver里面去了
 │  websocketservertest.py//服务端源码,不使用ros,可以用于简单验证控制程序,要是也可以基于此增加自己的控制服务端程序
 │      
 ├─controlserver//ros的一个完整的服务端的包,基于ros使用的服务端例子
